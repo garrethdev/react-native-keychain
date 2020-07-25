@@ -404,14 +404,14 @@ public class KeychainModule extends ReactContextBaseJavaModule {
   public void getSupportedBiometryType(@NonNull final Promise promise) {
     try {
       String reply = null;
-      if(isFaceAuthAvailable()){
+      if(isFingerprintAuthAvailable()) {
+        reply = FINGERPRINT_SUPPORTED_NAME;
+      } else if(isFaceAuthAvailable()){
         reply = FACE_SUPPORTED_NAME;
       } else if(isIrisAuthAvailable()) {
         reply = IRIS_SUPPORTED_NAME;
-      } else if(isFingerprintAuthAvailable()) {
-        reply = FINGERPRINT_SUPPORTED_NAME;
       }
-
+      
       promise.resolve(reply);
     } catch (Exception e) {
       Log.e(KEYCHAIN_MODULE, e.getMessage(), e);
